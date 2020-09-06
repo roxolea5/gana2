@@ -1,0 +1,11 @@
+flask
+PyJWT
+requests
+gunicorn
+redis
+pymysql
+oauth2client
+flask_session
+flask_migrate
+flask_script
+SQLAlchemy-serializer
