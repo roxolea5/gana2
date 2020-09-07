@@ -18,7 +18,13 @@ class Gana2:
         Session(self.app)
         Session.permanent = True
         self.app.permanent_session_lifetime = datetime.timedelta(days=180)
+
+        self.register_extensions()
         self.register_blueprints()
+
+    def register_extensions(self):
+        from extensions.db import DB
+        DB.init_app(self.app)
 
     def register_blueprints(self):
         from blueprints.web import web_api
