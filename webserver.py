@@ -23,7 +23,8 @@ class Gana2:
     def register_blueprints(self):
         from blueprints.web import web_api
         self.app.register_blueprint(web_api)
-        print("hi")
+        from blueprints.razas import razas_api
+        self.app.register_blueprint(razas_api)
 
 
 if __name__ == '__main__':
