@@ -31,6 +31,8 @@ class Gana2:
         self.app.register_blueprint(web_api)
         from blueprints.razas import razas_api
         self.app.register_blueprint(razas_api)
+        from blueprints.propietarios import propietarios_api
+        self.app.register_blueprint(propietarios_api)
 
 
 if __name__ == '__main__':
