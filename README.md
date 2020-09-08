@@ -100,3 +100,4 @@ from models.cat_razas import Raza
 from extensions.db import DB
 DB.init_app(self.app)
 ```
+
