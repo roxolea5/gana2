@@ -37,6 +37,8 @@ class Gana2:
         self.app.register_blueprint(roles_api)
         from blueprints.colores import colores_api
         self.app.register_blueprint(colores_api)
+        from blueprints.destinos import destinos_api
+        self.app.register_blueprint(destinos_api)
 
 
 if __name__ == '__main__':
