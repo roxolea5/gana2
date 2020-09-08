@@ -39,6 +39,8 @@ class Gana2:
         self.app.register_blueprint(colores_api)
         from blueprints.destinos import destinos_api
         self.app.register_blueprint(destinos_api)
+        from blueprints.diagnosticos_palpado import diagnosticos_palpado_api
+        self.app.register_blueprint(diagnosticos_palpado_api)
         from blueprints.tipo_movimientos import tipo_movimientos_api
         self.app.register_blueprint(tipo_movimientos_api)
 
