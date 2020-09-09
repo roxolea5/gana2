@@ -1,4 +1,5 @@
 import config
+import os
 from flask_sqlalchemy import SQLAlchemy
 
 # UPPER CASE vars: Vars from config.py
@@ -27,6 +28,7 @@ class DB:
         }
 
         # if env is local
+
         if env == 'local':
             app.config['SQLALCHEMY_BINDS']['dev'] = config.DATABASE_CONNECTION_STRING
 
