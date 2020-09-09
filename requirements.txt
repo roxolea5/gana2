@@ -10,3 +10,5 @@ flask_session
 flask_migrate
 flask_script
 SQLAlchemy-serializer
+flask_jwt
+passlib
