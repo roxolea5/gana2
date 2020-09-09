@@ -49,6 +49,8 @@ class Gana2:
         self.app.register_blueprint(municipios_api)
         from blueprints.localidades import localidades_api
         self.app.register_blueprint(localidades_api)
+        from blueprints.ranchos import ranchos_api
+        self.app.register_blueprint(ranchos_api)
 
 
 if __name__ == '__main__':
