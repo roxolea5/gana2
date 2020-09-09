@@ -47,6 +47,8 @@ class Gana2:
         self.app.register_blueprint(estados_api)
         from blueprints.municipios import municipios_api
         self.app.register_blueprint(municipios_api)
+        from blueprints.localidades import localidades_api
+        self.app.register_blueprint(localidades_api)
 
 
 if __name__ == '__main__':
