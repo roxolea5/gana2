@@ -43,6 +43,8 @@ class Gana2:
         self.app.register_blueprint(diagnosticos_palpado_api)
         from blueprints.tipo_movimientos import tipo_movimientos_api
         self.app.register_blueprint(tipo_movimientos_api)
+        from blueprints.estados import estados_api
+        self.app.register_blueprint(estados_api)
 
 
 if __name__ == '__main__':
