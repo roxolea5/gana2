@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from config import config
 from flask import Flask
@@ -59,6 +60,8 @@ class Gana2:
 
 if __name__ == '__main__':
     app = Gana2().app
+
+    # export FLASK_ENV=development
     if 'ssl_context' in config:
         app.run(threaded=True, debug=True,
                 port=config['port'], host=config['host'], ssl_context=config['ssl_context'])

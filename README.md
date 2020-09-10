@@ -1,8 +1,39 @@
 # gana2
 
+## Running the app
+
+Make sure you have the ENVIRONMENT variables for DEVELOPMENT mode properly configured:
+
+```
+export FLASK_ENV=development
+export gana2_host=127.0.0.1
+export gana2_db=DB
+export gana2_db_user=DB_USER
+export gana2_db_pwd=DB_USER_PWD
+```
+
+### Start services Before runing
+
+```
+sudo service mysql start
+```
+
+### Activate venv and install requirements
+
+```
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+App will runs by typing:
+
+```
+make run
+```
+
 ## Flask Workflow
 
-### Creating blueprint
+### Creating single Blueprint
 
 1. Add blueprint file to blueprints folder(web.py)
 2. Create blueprint object instance.
@@ -19,84 +50,61 @@ def index():
     return "Hi"
 ```
 
-### Registering blueprint
+### Flask WorkFlow: Adding a new endpoint
 
-1. Go to ./webserver.py
-2. Go to register_blueprints function
-3. Import blueprint to register
+#### 1. Create the Model
 
-```
-from blueprints.web import web_api
-```
-
-4. Register blueprint
-
-```
-self.app.register_blueprint(web_api)
-```
-
-### Registering model
-
-#### Creating DB Extension
-
-1. Go to config.local.json
-2. Modify DB Connection Strings
-
-```
-"DATABASE_CONNECTION_STRING": "mysql+pymysql://YOUR_USER:YOUR_PASSWORD@YOUR_IP/DB_NAME",
-  "DBCONN_STRING_DEV": "mysql+pymysql://YOUR_USER:YOUR_PASSWORD@YOUR_IP/DB_NAME",
-  "DBCONN_STRING_PROD": "mysql+pymysql://YOUR_USER:YOUR_PASSWORD@YOUR_IP/DB_NAME"
-```
-
-3. Create "extensions" folder
-4. Generate db.py for DB environment set up
-
-#### Creating Model
-
-1. Create "./models/" folder
-2. Add Raza model
+Add Raza model to "./models/" folder
 
 ```
 from sqlalchemy_serializer import SerializerMixin
 from extensions.db import DB
 db = DB.db
-DB_ENGINE = 'dev'
 
 
 class Raza(db.Model, SerializerMixin):
-    __bind_key__ = DB_ENGINE
-    __tablename__ = 'cat_razas'
-    __table_args__ = {
-        'autoload': True,
-        'autoload_with': DB.engines[DB_ENGINE].engine
-    }
+__tablename__ = 'cat_razas'
 
     def __init__(self):
         pass
 ```
 
-#### Creating Controller
+#### 2. The Controller
 
-1. Create "./controllers/" folder
-2. Create controller class on razas.py and import the model in it.
+Import the model into the controller file.
 
 ```
 from models.cat_razas import Raza
 ```
 
-3. Add getall static method
+Add `getall` static method
 
 ```
-
     def get_all():
         return Raza.query.filter().all()
 ```
 
-#### Register DB Extension
+#### 3. The BluePrint
 
-1. Go to ./webserver.py and register it on register_extensions function
+Go to ./webserver.py and check the `register_blueprints` method.
+
+Import the blueprint to register and register it
 
 ```
-from extensions.db import DB
-DB.init_app(self.app)
+from blueprints.razas import razas_api
+.
+.
+.
+self.app.register_blueprint(razas_api)
+```
+
+## Technical Workflow for a new endpoint.
+
+```
+- Add the class on migration.py
+- Do the migration process
+- Create the model
+- Create the controller and, import the model
+- Create the blueprint.
+- Register you blueprint into webserver.py at register_blueprints method.
 ```
