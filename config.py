@@ -18,7 +18,8 @@ db = "rancho_dev"
 export gana2_host=192.168.56.101
 export gana2_db=rancho_dev
 export gana2_db_user=roxana
-export gana2_db_pwd=El14571c-
+export gana2_db_pwd=E14571c-
+export FLASK_ENV=development
 """
 host = os.getenv('gana2_host')
 db = os.getenv('gana2_db')
