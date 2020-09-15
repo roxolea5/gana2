@@ -109,4 +109,4 @@ self.app.register_blueprint(razas_api)
 - Register you blueprint into webserver.py at register_blueprints method.
 ```
 
-current branch: migrations
+Current branch: endpoints_update
