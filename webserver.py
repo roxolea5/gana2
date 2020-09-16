@@ -30,6 +30,8 @@ class Gana2:
     def register_blueprints(self):
         from blueprints.web import web_api
         self.app.register_blueprint(web_api)
+        from blueprints.usuarios import usuarios_api
+        self.app.register_blueprint(usuarios_api)
         from blueprints.razas import razas_api
         self.app.register_blueprint(razas_api)
         from blueprints.propietarios import propietarios_api
@@ -44,6 +46,8 @@ class Gana2:
         self.app.register_blueprint(diagnosticos_palpado_api)
         from blueprints.tipo_movimientos import tipo_movimientos_api
         self.app.register_blueprint(tipo_movimientos_api)
+        from blueprints.paises import paises_api
+        self.app.register_blueprint(paises_api)
         from blueprints.estados import estados_api
         self.app.register_blueprint(estados_api)
         from blueprints.municipios import municipios_api
