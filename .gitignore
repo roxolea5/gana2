@@ -151,3 +151,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# After DB dump
+.DS_Store
