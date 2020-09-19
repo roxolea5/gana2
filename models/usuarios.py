@@ -6,7 +6,7 @@ DB_ENGINE = 'dev'
 
 class Usuario(db.Model, SerializerMixin):
     __bind_key__ = DB_ENGINE
-    __tablename__ = 'usuarios'
+    __tablename__ = 'adm_usuarios'
     __table_args__ = {
         'autoload': True,
         'autoload_with': DB.engines[DB_ENGINE].engine
