@@ -19,19 +19,23 @@ manager.add_command('db', MigrateCommand)
 
 
 class User(db.Model):
-    __tablename__ = 'usuarios'
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'adm_usuarios'
+    id = db.Column(db.Integer, primary_key=True,
+                   nullable=False, autoincrement=True)
 
-    # User Authentication fields
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    email_confirmed_at = db.Column(db.DateTime())
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(255), nullable=False)
-
-    # User fields
-    active = db.Column(db.Boolean())
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(255), unique=True, default=None)
+    password = db.Column(db.String(255), nullable=False, default=None)
+    session_id = db.Column(db.String(70), default=None)
+    correo_electronico = db.Column(db.String(255), unique=True, default=None)
+    usuario_creacion_id = db.Column(db.Integer, default=None)
+    fecha_creacion = db.Column(
+        db.DateTime(), default=None)
+    usuario_modificacion_id = db.Column(db.Integer, default=None)
+    fecha_modificacion = db.Column(
+        db.DateTime(), default=None)
+    active = db.Column(db.Boolean(), default=None)
+    propietario_id = db.Column(db.Integer, db.ForeignKey(
+        'adm_usuarios.id'), default=None)
 
 
 class AdmPropietario(db.Model):
@@ -44,6 +48,7 @@ class AdmPropietario(db.Model):
     identificador = db.Column(db.String(250), default=None)
 
     rancho = db.relationship('Rancho')
+    usuario = db.relationship('User')
 
 
 class AdmRol(db.Model):
