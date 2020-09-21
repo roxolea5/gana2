@@ -83,6 +83,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+migrations/
 
 # Spyder project settings
 .spyderproject
@@ -150,3 +151,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# After DB dump
+.DS_Store
