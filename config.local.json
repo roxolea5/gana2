@@ -2,6 +2,7 @@
   "port": 5000,
   "host": "0.0.0.0",
   "secret_key": "thesecretkey",
+  "JWT_SECRET_KEY": "fdsxgvhv",
   "DATABASE_CONNECTION_STRING": "mysql+pymysql://user:pwd@host/bd",
   "DBCONN_STRING_DEV": "mysql+pymysql://{{user}}:{{pwd}}@{{host}}/{{db}}",
   "DBCONN_STRING_PROD": "mysql+pymysql://{{user}}:{{pwd}}@{{host}}/{{db}}",
