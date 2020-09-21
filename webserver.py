@@ -1,9 +1,11 @@
 import datetime
+from flask import Flask
+from flask_session import Session
+from flask_jwt_extended import JWTManager
+
 import os
 
 from config import config
-from flask import Flask
-from flask_session import Session
 
 
 class Gana2:
@@ -22,6 +24,8 @@ class Gana2:
 
         self.register_extensions()
         self.register_blueprints()
+
+        self.register_jwt()
 
     def register_extensions(self):
         from extensions.db import DB
@@ -60,6 +64,12 @@ class Gana2:
         self.app.register_blueprint(potreros_api)
         from blueprints.lotes import lotes_api
         self.app.register_blueprint(lotes_api)
+        from blueprints.auth import auth_api
+        self.app.register_blueprint(auth_api)
+
+    def register_jwt(self):
+        self.app.config['SECRET_KEY'] = config['JWT_SECRET_KEY']
+        self.jwt = JWTManager(self.app)
 
 
 if __name__ == '__main__':
