@@ -1,11 +1,12 @@
+from controllers.auth import AuthController
 from flask import Blueprint, jsonify, render_template, request, send_from_directory, session, redirect, make_response
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
     get_jwt_identity, get_raw_jwt
 )
 from datetime import timedelta
+from flask_cors import cross_origin
 
-from controllers.auth import AuthController
 
 auth_api = Blueprint('auth_api', __name__)
 
@@ -17,11 +18,16 @@ def health():
     return jsonify("Health is ok!"), 200
 
 
-@auth_api.route("/login")
+@auth_api.route("/login", methods=['POST'])
+@cross_origin()
 def login():
-
+    """
     username = "roxana"
     password = "roxana5"
+    """
+
+    username = request.form['username']
+    password = request.form['password']
 
     try:
         user = AuthController.verify_user_for_jwt(username, password)

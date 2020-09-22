@@ -13,3 +13,4 @@ SQLAlchemy-serializer
 flask_jwt
 passlib
 flask_jwt_extended
+flask-cors

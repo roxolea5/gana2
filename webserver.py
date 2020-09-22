@@ -1,6 +1,8 @@
 import datetime
 from flask import Flask
+from flask_cors import CORS
 from flask_session import Session
+from flask_jwt import JWT
 from flask_jwt_extended import JWTManager
 
 import os
@@ -21,6 +23,9 @@ class Gana2:
         Session(self.app)
         Session.permanent = True
         self.app.permanent_session_lifetime = datetime.timedelta(days=180)
+
+        self.app.config['CORS_HEADERS'] = 'Content-Type'
+        CORS(self.app, resources={r"/api/*": {"origins": "*"}})
 
         self.register_extensions()
         self.register_blueprints()
