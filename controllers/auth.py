@@ -8,6 +8,7 @@ class AuthController:
     @staticmethod
     def verify_user_for_jwt(username, password):
         user = User.query.filter_by(username=username).first()
-        if user:  # and pbkdf2_sha256.verify(password, user.password):
+        pw = User.query.filter_by(password=password).first()
+        if user and pw:  # and pbkdf2_sha256.verify(password, user.password):
             return user
         return None
