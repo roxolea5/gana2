@@ -167,5 +167,3 @@ You have to enter your password and the dump file will be created.
 - Create the blueprint.
 - Register you blueprint into webserver.py at register_blueprints method.
 ```
-
-current branch: jwt-implementation
