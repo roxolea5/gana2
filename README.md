@@ -168,4 +168,71 @@ You have to enter your password and the dump file will be created.
 - Register you blueprint into webserver.py at register_blueprints method.
 ```
 
-current branch: python-docker
+## Working with Docker
+
+Install docker before next steps.
+
+### Create Dockerfile on project
+
+1. I am going to use Alpine Linux
+
+```
+FROM alpine:3.10
+```
+
+2. Install python3 and pip
+
+```
+RUN apk add --no-cache python3-dev \
+    && pip3 install --upgrade pip
+```
+
+3. Following instruction will define a directory where image will work
+
+```
+WORKDIR /g2app
+```
+
+4. Copy project´s content on last directory with
+
+```
+COPY . /g2app
+```
+
+5. Install requirements.txt
+
+```
+RUN pip3 --no-cache-dir install -r requirements.txt
+```
+
+6. Indicate which file will be executed with:
+
+```
+CMD ["python3", "webserver.py"]
+```
+
+### On Terminal
+
+1. To create docker image use `docker build`command followed by `-t`and `image_name` and add all projects content with `.`
+
+```
+docker build -t gana2app .
+```
+
+2. Check image has been created with
+
+```
+docker images
+```
+
+3. You can also seen the image content with
+
+```
+docker run -it gana2app /bin/sh
+```
+
+4. Now to run image we need to set environment variables on `docker run` command. -it will run interactive mode and --publish define image port and local project port at the end is our image name
+
+```
+docker run -e gana2_host=host_ip -e gana2_db=db_name -e gana2_db_user=user_name -e gana2_db_pwd=user_password -e FLASK_ENV=development -it --publish 4000:5000 gana2app
+```
