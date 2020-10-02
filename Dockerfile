@@ -5,6 +5,12 @@ RUN apk add --no-cache python3-dev \
 
 WORKDIR /g2app
 
+ENV gana2_host 192.168.56.101
+ENV gana2_db rancho_dev
+ENV gana2_db_user roxana
+ENV gana2_db_pwd E14571c-
+ENV FLASK_ENV development
+
 COPY . /g2app
 
 RUN pip3 --no-cache-dir install -r requirements.txt
