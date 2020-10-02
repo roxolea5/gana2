@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  pythonflask:
+    environment:
+      - gana2_host=${GANA2_HOST}
+      - gana2_db=${GANA2_DB}
+      - gana2_db_user=${GANA2_DB_USER}
+      - gana2_db_pwd=${GANA2_DB_PWD}
+    build: .
+    ports:
+      - "4000:5000"
+    volumes:
+      - .:/g2app

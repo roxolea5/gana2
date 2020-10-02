@@ -5,8 +5,6 @@ RUN apk add --no-cache python3-dev \
 
 WORKDIR /g2app
 
-ENV gana2_host 192.168.56.101
-ENV gana2_db rancho_dev
 ENV FLASK_ENV development
 
 COPY . /g2app
