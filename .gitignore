@@ -199,3 +199,5 @@ build
 db.json
 
 package-lock.json
+
+.dockerignore
