@@ -71,6 +71,8 @@ class Gana2:
         self.app.register_blueprint(lotes_api)
         from blueprints.auth import auth_api
         self.app.register_blueprint(auth_api)
+        from blueprints.personas import personas_api
+        self.app.register_blueprint(personas_api)
 
     def register_jwt(self):
         self.app.config['SECRET_KEY'] = config['JWT_SECRET_KEY']
