@@ -1,0 +1,13 @@
+.div-parent {
+  min-height: 700px;
+  min-width: 700px;
+}
+
+.div-on-spinner-lg{
+  height: 200px;
+}
+
+.loading-component-lg {
+  width: 400px;
+  height: 400px;
+}
