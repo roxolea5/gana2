@@ -37,6 +37,8 @@ class User(db.Model):
     propietario_id = db.Column(db.Integer, db.ForeignKey(
         'adm_propietarios.id'), default=None)
 
+    adm_rol_usuario = db.relationship('AdmRolUsuario')
+
 
 class AdmPersona(db.Model):
     __tablename__ = 'adm_personas'
@@ -83,6 +85,27 @@ class AdmRol(db.Model):
     rol = db.Column(db.String(50), primary_key=True, nullable=False)
     descripcion = db.Column(db.String(200), nullable=False)
     activo = db.Column(db.Boolean(4))
+
+    adm_rol_usuario = db.relationship('AdmRolUsuario')
+
+
+class AdmRolUsuario(db.Model):
+    __tablename__ = 'adm_roles_usuario'
+
+    id = db.Column(db.Integer, primary_key=True,
+                   nullable=False, autoincrement=True)
+    usuario_id = db.Column(db.Integer, db.ForeignKey(
+        'adm_usuarios.id'), nullable=False)
+    rol = db.Column(db.String(50), db.ForeignKey(
+        'adm_roles.rol'), default=None)
+    usuario_creacion_id = db.Column(db.Integer, default=None)
+    fecha_creacion = db.Column(
+        db.DateTime(), default=None)
+    usuario_modificacion_id = db.Column(db.Integer, default=None)
+    fecha_modificacion = db.Column(
+        db.DateTime(), default=None)
+    activo = db.Column(db.Boolean(4), default=None)
+    propietario_id = db.Column(db.Integer, default=None)
 
 
 class Color(db.Model):
