@@ -241,3 +241,22 @@ current branch: new-migrations
 
 ### do a test by doing cUrl:
         curl http://127.0.0.1:5000/health
+
+# RUNNING FOR DEVELOPMENT ENVIRONMENT
+## Flask
+```
+export FLASK_ENV=development
+source venv/bin/activate
+make run
+```
+## React
+```
+cd web
+
+# this below is just for the fist time
+npm build
+npm install
+
+# this will be every time in order to start the app
+npm start
+```
