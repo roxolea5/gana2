@@ -238,3 +238,6 @@ docker run -e gana2_host=host_ip -e gana2_db=db_name -e gana2_db_user=user_name 
 ```
 
 current branch: new-migrations
+
+### do a test by doing cUrl:
+        curl http://127.0.0.1:5000/health
