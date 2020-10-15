@@ -237,4 +237,10 @@ docker run -it gana2app /bin/sh
 docker run -e gana2_host=host_ip -e gana2_db=db_name -e gana2_db_user=user_name -e gana2_db_pwd=user_password -e FLASK_ENV=development -it --publish 4000:5000 gana2app
 ```
 
+### Do a test by doing cUrl:
+
+    After connecting with server got through terminal to:
+
+    curl http://127.0.0.1:5000/health
+
 current branch: new-migrations
