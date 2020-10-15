@@ -1,15 +1,26 @@
-FROM node:alpine
+# Docker Image which is used as foundation to create
+# a custom Docker Image with this Dockerfile
+FROM node:10
 
-WORKDIR /reactapp
+# A directory within the virtualized Docker environment
+# Becomes more relevant when using Docker Compose later
+WORKDIR /usr/src/app
 
-ENV PATH /app/node_modules/.bin:$PATH
+# Copies package.json and package-lock.json to Docker environment
+COPY package*.json ./
 
-COPY package.json ./
-COPY package-lock.json ./
+# Installs all node packages
+RUN npm install
 
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+# Copies everything over to Docker environment
+COPY . .
 
-COPY . ./
+# Uses port which is used by the actual application
+EXPOSE 3000
 
-CMD ["npm", "start"]
+# Finally runs the application
+CMD [ "npm", "start" ]
+
+
+# docker build -t sommelier .
+# docker run --name sommelier -p 3000:3000 sommelier

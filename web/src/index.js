@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom"
 
-import { render } from "react-dom";
+// import App from './App';
+import App from './App'
+import './index.css';
 
-//import App from "./Components/App";
-import Login from "./Components/Auth/AuthComponent";
-
-/*function Hi() {
-  return <p>Hi!</p>;
-}*/
-
-render(<Login />, document.getElementById("app"));
+ReactDOM.render(
+  <BrowserRouter><App /></BrowserRouter>,
+  document.getElementById('root')
+);
