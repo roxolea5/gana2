@@ -35,7 +35,38 @@ class User(db.Model):
         db.DateTime(), default=None)
     active = db.Column(db.Boolean(), default=None)
     propietario_id = db.Column(db.Integer, db.ForeignKey(
-        'adm_usuarios.id'), default=None)
+        'adm_propietarios.id'), default=None)
+
+    adm_rol_usuario = db.relationship('AdmRolUsuario')
+    adm_usuario_persona = db.relationship('AdmUsuarioPersona')
+
+
+class AdmPersona(db.Model):
+    __tablename__ = 'adm_personas'
+    id = db.Column(db.Integer, primary_key=True,
+                   nullable=False, autoincrement=True)
+
+    tipo_persona = db.Column(db.Boolean(4), default=None)
+    curp = db.Column(db.String(18), default=None)
+    rfc = db.Column(db.String(25), default=None)
+    nombre = db.Column(db.String(75), default=None)
+    apellido_paterno = db.Column(db.String(150), default=None)
+    apellido_materno = db.Column(db.String(150), default=None)
+    direccion = db.Column(db.Text)
+    estado_id = db.Column(db.Integer, db.ForeignKey(
+        'cat_estados.id'), default=None)
+    municipio_id = db.Column(db.Integer, default=None)
+    localidad_id = db.Column(db.Integer, default=None)
+    activo = db.Column(db.Boolean(4), default=1)
+    usuario_creacion_id = db.Column(db.Integer, nullable=False, default=1)
+    fecha_creacion = db.Column(
+        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+    fecha_modificacion = db.Column(
+        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+    propietario_id = db.Column(db.Integer, default=None)
+
+    adm_usuario_persona = db.relationship('AdmUsuarioPersona')
 
 
 class AdmPropietario(db.Model):
@@ -57,6 +88,38 @@ class AdmRol(db.Model):
     rol = db.Column(db.String(50), primary_key=True, nullable=False)
     descripcion = db.Column(db.String(200), nullable=False)
     activo = db.Column(db.Boolean(4))
+
+    adm_rol_usuario = db.relationship('AdmRolUsuario')
+
+
+class AdmRolUsuario(db.Model):
+    __tablename__ = 'adm_roles_usuario'
+
+    id = db.Column(db.Integer, primary_key=True,
+                   nullable=False, autoincrement=True)
+    usuario_id = db.Column(db.Integer, db.ForeignKey(
+        'adm_usuarios.id'), nullable=False)
+    rol = db.Column(db.String(50), db.ForeignKey(
+        'adm_roles.rol'), default=None)
+    usuario_creacion_id = db.Column(db.Integer, default=None)
+    fecha_creacion = db.Column(
+        db.DateTime(), default=None)
+    usuario_modificacion_id = db.Column(db.Integer, default=None)
+    fecha_modificacion = db.Column(
+        db.DateTime(), default=None)
+    activo = db.Column(db.Boolean(4), default=None)
+    propietario_id = db.Column(db.Integer, default=None)
+
+
+class AdmUsuarioPersona(db.Model):
+    __tablename__ = 'adm_usuario_persona'
+
+    id = db.Column(db.Integer, primary_key=True,
+                   nullable=False, autoincrement=True)
+    persona_id = db.Column(db.Integer, db.ForeignKey(
+        'adm_personas.id'), nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey(
+        'adm_usuarios.id'), nullable=False)
 
 
 class Color(db.Model):
@@ -130,6 +193,7 @@ class Estado(db.Model):
     municipio = db.relationship('Municipio')
     localidad = db.relationship('Localidad')
     rancho = db.relationship('Rancho')
+    persona = db.relationship('AdmPersona')
 
 
 class Municipio(db.Model):
