@@ -24,7 +24,7 @@ class User(db.Model):
                    nullable=False, autoincrement=True)
 
     username = db.Column(db.String(255), unique=True, default=None)
-    password = db.Column(db.String(255), nullable=False, default=None)
+    password = db.Column(db.String(255), nullable=False)
     session_id = db.Column(db.String(70), default=None)
     correo_electronico = db.Column(db.String(255), unique=True, default=None)
     usuario_creacion_id = db.Column(db.Integer, default=None)
@@ -33,7 +33,7 @@ class User(db.Model):
     usuario_modificacion_id = db.Column(db.Integer, default=None)
     fecha_modificacion = db.Column(
         db.DateTime(), default=None)
-    active = db.Column(db.Boolean(), default=None)
+    active = db.Column(db.Boolean(1), default=None)
     propietario_id = db.Column(db.Integer, db.ForeignKey(
         'adm_propietarios.id'), default=None)
 
@@ -57,13 +57,13 @@ class AdmPersona(db.Model):
         'cat_estados.id'), default=None)
     municipio_id = db.Column(db.Integer, default=None)
     localidad_id = db.Column(db.Integer, default=None)
-    activo = db.Column(db.Boolean(4), default=1)
-    usuario_creacion_id = db.Column(db.Integer, nullable=False, default=1)
+    activo = db.Column(db.Boolean(4), default=None)
+    usuario_creacion_id = db.Column(db.Integer, nullable=False, default=None)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
     propietario_id = db.Column(db.Integer, default=None)
 
     adm_usuario_persona = db.relationship('AdmUsuarioPersona')
@@ -72,10 +72,11 @@ class AdmPersona(db.Model):
 class AdmPropietario(db.Model):
     __tablename__ = 'adm_propietarios'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, nullable=False,
+                   primary_key=True, autoincrement=True)
     correo_electronico = db.Column(
         db.String(100), nullable=False)
-    activo = db.Column(db.Boolean(4))
+    activo = db.Column(db.Boolean(4), default=None)
     identificador = db.Column(db.String(250), default=None)
 
     rancho = db.relationship('Rancho')
@@ -87,7 +88,7 @@ class AdmRol(db.Model):
 
     rol = db.Column(db.String(50), primary_key=True, nullable=False)
     descripcion = db.Column(db.String(200), nullable=False)
-    activo = db.Column(db.Boolean(4))
+    activo = db.Column(db.Boolean(4), default=None)
 
     adm_rol_usuario = db.relationship('AdmRolUsuario')
 
@@ -128,13 +129,13 @@ class Color(db.Model):
                    nullable=False, autoincrement=True)
 
     descripcion = db.Column(db.String(250), nullable=False)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
-    usuario_creacion_id = db.Column(db.Integer, nullable=False, default=1)
+    activo = db.Column(db.Boolean(1), nullable=False)
+    usuario_creacion_id = db.Column(db.Integer, nullable=False)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
     propietario_id = db.Column(db.Integer, default=None)
 
 
@@ -144,14 +145,14 @@ class Destino(db.Model):
     id = db.Column(db.Integer, nullable=False,
                    primary_key=True, autoincrement=True)
     descripcion = db.Column(db.String(250), nullable=False)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
-    usuario_creacion_id = db.Column(db.Integer, nullable=False, default=1)
+    activo = db.Column(db.Boolean(), nullable=False)
+    usuario_creacion_id = db.Column(db.Integer, nullable=False)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.now)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.now)
-    propietario_id = db.Column(db.Integer)
+        db.DateTime(), nullable=False)
+    propietario_id = db.Column(db.Integer, default=None)
 
 
 class DiagnosticoPalpado(db.Model):
@@ -245,13 +246,13 @@ class Rancho(db.Model):
     propietario_id = db.Column(
         db.Integer, db.ForeignKey('adm_propietarios.id'), default=None)
     como_llegar = db.Column(db.Text, nullable=False)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
-    usuario_creacion_id = db.Column(db.Integer, nullable=True, default=1)
+    activo = db.Column(db.Boolean(1), nullable=False)
+    usuario_creacion_id = db.Column(db.Integer, nullable=True)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
 
     potrero = db.relationship('Potrero')
     lote = db.relationship('Lote')
@@ -263,17 +264,17 @@ class Potrero(db.Model):
     id = db.Column(db.Integer, nullable=False,
                    autoincrement=True, primary_key=True)
     rancho_id = db.Column(db.Integer, db.ForeignKey(
-        'cat_ranchos.id'), nullable=False, default=0)
+        'cat_ranchos.id'), nullable=False)
     nombre = db.Column(db.String(75), default=None)
     extension = db.Column(db.Numeric(10, 2), default=None)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
+    activo = db.Column(db.Boolean(1), nullable=False)
     usuario_creacion_id = db.Column(
-        db.Integer, nullable=False, default=1)
+        db.Integer, nullable=False)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
     propietario_id = db.Column(
         db.Integer, default=None)
 
@@ -290,14 +291,14 @@ class Lote(db.Model):
     potrero_id = db.Column(db.Integer, db.ForeignKey(
         'cat_potreros.id'), nullable=False)
     nombre = db.Column(db.String(75), nullable=False)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
+    activo = db.Column(db.Boolean(1), nullable=False)
     usuario_creacion_id = db.Column(
-        db.Integer, nullable=False, default=1)
+        db.Integer, nullable=False)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
     propietario_id = db.Column(
         db.Integer, default=None)
 
@@ -308,14 +309,14 @@ class Raza(db.Model):
     id = db.Column(db.Integer, nullable=False,
                    autoincrement=True, primary_key=True)
     descripcion = db.Column(db.String(75), default=None)
-    activo = db.Column(db.Boolean(), nullable=False, default=b'1')
+    activo = db.Column(db.Boolean(1), nullable=False)
     usuario_creacion_id = db.Column(
-        db.Integer, nullable=False, default=1)
+        db.Integer, nullable=False)
     fecha_creacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
-    usuario_modificacion_id = db.Column(db.Integer, nullable=False, default=1)
+        db.DateTime(), nullable=False)
+    usuario_modificacion_id = db.Column(db.Integer, nullable=False)
     fecha_modificacion = db.Column(
-        db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
+        db.DateTime(), nullable=False)
     propietario_id = db.Column(
         db.Integer, default=None)
 
