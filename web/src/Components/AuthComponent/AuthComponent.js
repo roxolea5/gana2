@@ -64,7 +64,7 @@ export default class AuthComponent extends React.Component {
     return (
       <Form className="login-form" onSubmit={this.handleLogin}>
         <h1>
-          <span className="font-weight-bold">Sommelier</span>.com
+          <span className="font-weight-bold">gana2</span>.com
         </h1>
         <h2 className="text-center">Iniciar sesi&oacute;n</h2>
         <FormGroup>
